@@ -1,0 +1,65 @@
+﻿@page "/"
+@inject IJSRuntime jsRuntime
+@implements IDisposable
+
+<h1>Hello, Blazor 專案在 JavaScript 內呼叫 C# 執行個體方法!</h1>
+
+<div>
+    <button class="btn btn-primary" @onclick="SetDotNetObject">設定物件</button>
+</div>
+<div>
+    <button type="button" class="btn btn-primary" onclick="showPrompt('請輸入你的名字')">
+        綁定按鈕事件到 JavaScript 上
+    </button>
+</div>
+<div>
+    <div class="text-success">@Name</div>
+</div>
+
+@code {
+    BindDotNetInstance helloHelper = new BindDotNetInstance();
+    DotNetObjectReference<BindDotNetInstance> objRef;
+    public string Name = "";
+    async Task SetDotNetObject()
+    {
+        // 進行綁定該執行個體的委派方法，以便進行 callback 呼叫
+        helloHelper.HelloHandler = x =>
+        {
+        //將 JavaScript 程式碼取得的文字內容，設定到該 Blazor 元件內的 C# 變數中
+        Name = x;
+        //通知 Blazor 重新產生最新狀態的 Render Tree
+        StateHasChanged();
+        };
+        objRef = DotNetObjectReference.Create(helloHelper);
+        await jsRuntime.InvokeAsync<string>(
+            "SetDotNetObjectJS", objRef);
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender == true)
+        {
+            helloHelper.HelloHandler = x =>
+            {
+                Name = x;
+                StateHasChanged();
+            };
+            objRef = DotNetObjectReference.Create(helloHelper);
+            await jsRuntime.InvokeVoidAsync(
+                "SetDotNetObjectJS", objRef);
+        }
+    }
+    public void Dispose()
+    {
+        objRef?.Dispose();
+    }
+    class BindDotNetInstance
+    {
+        public Action<string> HelloHandler;
+        [JSInvokable]
+        public void SayHello(string message)
+        {
+            var result = $"你好, {message}!";
+            HelloHandler?.Invoke(result);
+        }
+    }
+}
