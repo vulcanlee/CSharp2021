@@ -1,0 +1,29 @@
+﻿@page "/counter"
+@using Microsoft.Extensions.Logging;
+@inject ILogger<Counter> logger;
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<div>
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</div>
+<div>
+    <button class="btn btn-danger" @onclick="RaiseException">拋出例外異常</button>
+</div>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        logger.LogInformation($"計數器按鈕已經被按下! Counter={currentCount}");
+    }
+    private void RaiseException()
+    {
+        Exception exception = new Exception("喔喔，遇到例外異常");
+        throw exception;
+    }
+}
