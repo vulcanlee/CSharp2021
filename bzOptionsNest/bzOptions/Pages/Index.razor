@@ -1,0 +1,28 @@
+﻿@page "/"
+@using Microsoft.Extensions.Options
+@inject IOptions<中文選項1> option1
+
+<h1>Hello, ASP.NET Core 中的選項模式!</h1>
+
+<div>
+    <div>@option1.Value.Child1</div>
+    <div>@option1.Value.Child2</div>
+    <div>@option1.Value.節點中文3</div>
+    <div>@option1.Value.NestNode1.SubNode1</div>
+    <div>@option1.Value.NestNode1.SubNode2</div>
+    <div>@option1.Value.NestNode1.SubNode3</div>
+</div>
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    中文選項1 我的客製化選項;
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender == true)
+        {
+            我的客製化選項 = option1.Value;
+        }
+    }
+}
