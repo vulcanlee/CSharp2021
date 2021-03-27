@@ -4,8 +4,9 @@
 |-|-|-|
 |csAddressToGPS|.NET Core 使用地址來查詢 GPS 經度緯度||
 |bzCallCsharpInstanceMethodFromJavaScript|使用 Blazor 專案在 JavaScript 內呼叫 C# 執行個體方法||
-|bzNlog|在 Blazor 專案內使用 NLog||
-||||
+|bzNlog|在 Blazor 專案內使用 NLog 進行系統執行日誌紀錄||
+|bzNlogDynamicPath|在 Blazor 專案內使用 NLog ，並透過 appsettings.json 來指定 Log 儲存路徑||
+|bzOptions|Blazor 專案使用ASP.NET Core 中的選項模式取得設定宣告內容||
 ||||
 ||||
 ||||
