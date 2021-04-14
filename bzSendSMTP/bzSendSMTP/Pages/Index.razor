@@ -1,0 +1,54 @@
+﻿@page "/"
+@using MailKit.Net.Smtp
+@using MailKit
+@using MimeKit
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration configuration
+<h1>Hello, MailKit!</h1>
+
+<div>
+    <button class="btn btn-primary"
+            @onclick="SendMailAsync">
+        發送郵件
+    </button>
+</div>
+<div class="display-1 text-success">
+    @message
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code
+{
+    string message;
+
+    void SendMailAsync()
+    {
+        message = "";
+        var sendMessage = new MimeMessage();
+        sendMessage.From.Add(new MailboxAddress("vulcan_lee@hotmail.com", "vulcan_lee@hotmail.com"));
+        sendMessage.To.Add(new MailboxAddress("Vulcan Lee", "vulcan.lee@gmail.com"));
+        sendMessage.Subject = "恭喜你可以使用 Blazor 發送郵件";
+
+        sendMessage.Body = new TextPart("html")
+        {
+            Text = @"<h1>你好</h1></br>請開始繼續下一個練習</br>你是否願意<b>繼續</b>接受挑戰?"
+        };
+
+        string Server = configuration["SMTPInformation:Server"];
+        int Port = Convert.ToInt32( configuration["SMTPInformation:Port"]);
+        string account = configuration["SMTPInformation:Accout"];
+        string password = configuration["SMTPInformation:Password"];
+        using (var client = new SmtpClient())
+        {
+            client.Connect(Server, Port, false);
+
+            // Note: only needed if the SMTP server requires authentication
+            client.Authenticate(account, password);
+
+            client.Send(sendMessage);
+            client.Disconnect(true);
+            message = "郵件已經送出";
+        }
+    }
+}

@@ -8,6 +8,6 @@
 |bzNlogDynamicPath|在 Blazor 專案內使用 NLog ，並透過 appsettings.json 來指定 Log 儲存路徑||
 |bzOptions|Blazor 專案使用ASP.NET Core 中的選項模式取得設定宣告內容||
 |bzConfiguration|ASP.NET Core 設定 Configuration 各種使用方式||
-||||
+|bzSendSMTP|在 Blazor 專案內，使用 MailKit 發送具有 HTML 格式的電子郵件||
 ||||
 
