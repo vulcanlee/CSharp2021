@@ -1,0 +1,8 @@
+2021-03-28 01:40:32.4298 Info Message Template Auto Format enabled
+2021-03-28 01:40:32.4545 Info Loading assembly: NLog.Web.AspNetCore
+2021-03-28 01:40:32.5086 Info Adding target FileTarget(Name=allfile)
+2021-03-28 01:40:32.5086 Info Adding target FileTarget(Name=ownFile-web)
+2021-03-28 01:40:32.5244 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2021-03-28 01:40:32.5524 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=69, FilePath=D:\Vulcan\GitHub\CSharp2021\bzNlogDynamicPath\bzNlog\bin\Debug\net5.0\NLog.config
+2021-03-28 01:40:32.5762 Info Configuration initialized.
+2021-03-28 01:40:32.5762 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.8.12686. Product version: 4.7.8+1a738710a3e2974972abafd94d9df40f6b58035f. GlobalAssemblyCache: False

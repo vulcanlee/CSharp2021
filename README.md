@@ -7,7 +7,7 @@
 |bzNlog|在 Blazor 專案內使用 NLog 進行系統執行日誌紀錄||
 |bzNlogDynamicPath|在 Blazor 專案內使用 NLog ，並透過 appsettings.json 來指定 Log 儲存路徑||
 |bzOptions|Blazor 專案使用ASP.NET Core 中的選項模式取得設定宣告內容||
-||||
+|bzConfiguration|ASP.NET Core 設定 Configuration 各種使用方式||
 ||||
 ||||
 
