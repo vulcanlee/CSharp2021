@@ -1,0 +1,62 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Calendars
+
+<h1>Hello, SfDatePicker!</h1>
+
+<div>
+    <div>有設定最小日期與最大日期， TValue 宣告為 DateTime? (Date1Value)</div>
+    <SfDatePicker TValue="DateTime?" Min='@MinDate' Max='@MaxDate' @bind-Value='@Date1Value'></SfDatePicker>
+</div>
+<div>
+    <div>有設定最小日期與最大日期， TValue 宣告為 DateTime (Date4Value)</div>
+    <SfDatePicker TValue="DateTime" Min='@MinDate' Max='@MaxDate' StrictMode=false  @bind-Value='@Date4Value'></SfDatePicker>
+</div>
+<div>
+    <div>有設定最小日期， TValue 宣告為 DateTime (Date2Value)</div>
+    <SfDatePicker TValue="DateTime" Min='@MinDate' @bind-Value='@Date2Value'></SfDatePicker>
+</div>
+<div>
+    <div>有設定最大日期， TValue 宣告為 DateTime (Date3Value)</div>
+    <SfDatePicker TValue="DateTime" Max='@MaxDate' @bind-Value='@Date3Value'></SfDatePicker>
+</div>
+<div>
+    <div>有設定最小日期， TValue 宣告為 DateTime? (Date5Value)</div>
+    <SfDatePicker TValue="DateTime?" Min='@MinDate' @bind-Value='@Date5Value'></SfDatePicker>
+</div>
+<div>
+    <div>有設定最大日期， TValue 宣告為 DateTime? (Date6Value)</div>
+    <SfDatePicker TValue="DateTime?" Max='@MaxDate' @bind-Value='@Date6Value'></SfDatePicker>
+</div>
+
+<div class="bg-primary">
+    <div class="text-white">Date1Value = @Date1Value</div>
+    <div class="text-white">Date2Value = @Date2Value</div>
+    <div class="text-white">Date3Value = @Date3Value</div>
+    <div class="text-white">Date4Value = @Date4Value</div>
+    <div class="text-white">Date5Value = @Date5Value</div>
+    <div class="text-white">Date6Value = @Date6Value</div>
+</div>
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    public DateTime MinDate { get; set; }
+    public DateTime MaxDate { get; set; }
+    public DateTime? Date1Value { get; set; }
+    public DateTime? Date5Value { get; set; }
+    public DateTime? Date6Value { get; set; }
+    public DateTime Date2Value { get; set; }
+    public DateTime Date3Value { get; set; }
+    public DateTime Date4Value { get; set; }
+
+    protected override void OnInitialized()
+    {
+        MinDate = DateTime.Now;
+        MaxDate = DateTime.Now.AddDays(8);
+        Date1Value = DateTime.Now.AddDays(2);
+        Date2Value = DateTime.Now.AddDays(2);
+        Date3Value = DateTime.Now.AddDays(2);
+        Date4Value = DateTime.Now.AddDays(2);
+        Date5Value = DateTime.Now.AddDays(2);
+        Date6Value = DateTime.Now.AddDays(2);
+    }
+}
