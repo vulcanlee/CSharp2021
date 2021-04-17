@@ -10,7 +10,7 @@
 |bzConfiguration|ASP.NET Core 設定 Configuration 各種使用方式||
 |bzSendSMTP|在 ASP.NET Core Blazor 專案內，使用 MailKit 發送具有 HTML 格式的電子郵件||
 |bsDatePicker|Blazor 專案使用 SfDatePicker 選取日期||
-||||
+|csTaskFactoryAwait|為何無法等待非同步工作 await Task||
 ||||
 ||||
 ||||
