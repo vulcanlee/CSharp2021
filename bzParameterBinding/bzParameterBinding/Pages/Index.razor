@@ -36,15 +36,15 @@
         #endregion
 
         #region 將呼叫元件方法改成非同步方式呼叫
-        Console.WriteLine();
-        Console.WriteLine($"觸發按鈕事件 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
-        counter++;
-        Console.WriteLine($"計數器 + 1 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
-        var myTask = System.Threading.Tasks.Task.Run(() =>
-        {
-            System.Threading.Thread.Sleep(100);
-            component.ShowSomething();
-        });
+        //Console.WriteLine();
+        //Console.WriteLine($"觸發按鈕事件 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //counter++;
+        //Console.WriteLine($"計數器 + 1 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //var myTask = System.Threading.Tasks.Task.Run(() =>
+        //{
+        //    System.Threading.Thread.Sleep(100);
+        //    component.ShowSomething();
+        //});
         #endregion
     }
 
