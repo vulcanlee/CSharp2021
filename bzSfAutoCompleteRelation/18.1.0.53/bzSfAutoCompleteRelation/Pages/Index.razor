@@ -1,0 +1,92 @@
+﻿@page "/"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.DropDowns
+
+<h1>Hello, 串接式 SfAutoComplete!</h1>
+<h3>第 1 層選單 (大分類)</h3>
+<SfAutoComplete TValue="string" TItem="Category1" Placeholder=""
+                ShowPopupButton="true"
+                DataSource="@LocalData1" @bind-Value="@LocalInput1">
+    <AutoCompleteFieldSettings Value="Code" Text="Name" />
+    <AutoCompleteEvents TValue="string"
+                        ValueChange="OnCategory1Changed">
+    </AutoCompleteEvents>
+</SfAutoComplete>
+<br />
+<div>@LocalInput1</div>
+<br />
+<h3>第 2 層選單 (小分類)</h3>
+<SfAutoComplete TValue="string" TItem="Category2" Placeholder=""
+                ShowPopupButton="true"
+                DataSource="@LocalData2" @bind-Value="@LocalInput2">
+    <AutoCompleteFieldSettings Value="Code" Text="Name"/>
+    <AutoCompleteEvents TValue="string"
+                        ValueChange="@OnCategory2Changed">
+    </AutoCompleteEvents>
+</SfAutoComplete>
+<br />
+<div>@LocalInput2</div>
+<br />
+
+@code {
+
+    public class Category1
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+    public class Category2
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+
+    List<Category1> LocalData1 = new List<Category1>();
+    List<Category2> LocalData2 = new List<Category2>();
+    string LocalInput1;
+    string LocalInput2;
+    string LocalInput3;
+    protected override void OnInitialized()
+    {
+        RefreshCategory1();
+        RefreshCategory2(null);
+    }
+
+    void RefreshCategory1()
+    {
+        LocalData1.Clear();
+        for (int i = 0; i < 20; i++)
+        {
+            var idx = i;
+            var item = new Category1()
+            {
+                Name = $"大分類[1] {idx}",
+                Code = $"C1 {idx}",
+            };
+            LocalData1.Add(item);
+        }
+    }
+    void OnCategory1Changed(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+        LocalInput2 = null;
+        RefreshCategory2(LocalInput1);
+    }
+    void RefreshCategory2(string upNode)
+    {
+        LocalData2.Clear();
+        if (string.IsNullOrEmpty(upNode)) return;
+        for (int i = 0; i < 20; i++)
+        {
+            var idx = i;
+            var item = new Category2()
+            {
+                Name = $"大分類{upNode} 小分類[2] {idx}",
+                Code = $"C2 {idx}",
+            };
+            LocalData2.Add(item);
+        }
+    }
+    void OnCategory2Changed(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string> args)
+    {
+    }
+}

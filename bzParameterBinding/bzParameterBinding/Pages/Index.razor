@@ -1,0 +1,51 @@
+﻿@page "/"
+
+<h1>Hello, Parameter Binding</h1>
+
+<br />
+<button class="btn btn-primary"
+        @onclick="btnClick">
+    加一
+</button>
+<br />
+<Component @ref="component" MyProperty="counter" />
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    int counter = 0;
+    Component component;
+    async Task btnClick()
+    {
+        #region 使用同步方式來執行
+        //Console.WriteLine();
+        //Console.WriteLine($"觸發按鈕事件 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //counter++;
+        //Console.WriteLine($"計數器 + 1 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //component.ShowSomething();
+        #endregion
+
+        #region 呼叫元件方法前，使用 await 
+        //Console.WriteLine();
+        //Console.WriteLine($"觸發按鈕事件 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //counter++;
+        //Console.WriteLine($"計數器 + 1 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        //await Task.Yield();
+        //await Task.Delay(100);
+        //component.ShowSomething();
+        #endregion
+
+        #region 將呼叫元件方法改成非同步方式呼叫
+        Console.WriteLine();
+        Console.WriteLine($"觸發按鈕事件 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        counter++;
+        Console.WriteLine($"計數器 + 1 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        var myTask = System.Threading.Tasks.Task.Run(() =>
+        {
+            System.Threading.Thread.Sleep(100);
+            component.ShowSomething();
+        });
+        #endregion
+    }
+
+}

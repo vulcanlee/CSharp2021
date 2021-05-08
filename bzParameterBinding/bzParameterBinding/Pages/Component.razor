@@ -1,0 +1,21 @@
+﻿<h3>Component</h3>
+<h4>@MyProperty</h4>
+
+@code {
+    private int myVar;
+    [Parameter]
+    public int MyProperty
+    {
+        get { return myVar; }
+        set
+        {
+            myVar = value;
+            Console.WriteLine($"設定參數綁定 ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        }
+    }
+
+    public void ShowSomething()
+    {
+        Console.WriteLine($"呼叫方法 [{MyProperty}] ({System.Threading.Thread.CurrentThread.ManagedThreadId})");
+    }
+}
