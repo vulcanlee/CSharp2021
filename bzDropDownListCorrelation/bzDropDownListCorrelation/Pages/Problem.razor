@@ -1,0 +1,71 @@
+﻿@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using bzDropDownListCorrelation.Data
+@inject ProblemViewModel RazorModel
+
+<SfButton @onclick="Click">OK</SfButton>
+<div>
+    <SfDropDownList TValue="int" TItem="MyClass" Placeholder="我的條件"
+                    Enabled="@RazorModel.ReadyGo"
+                    DataSource="@RazorModel.MyClassList" @bind-Value="@RazorModel.QueryCondition.MyId">
+        <DropDownListEvents TValue="int" TItem="MyClass"
+                            ValueChange="RazorModel.MasterListChanged" />
+        <DropDownListFieldSettings Text="Name" Value="Id" />
+    </SfDropDownList>
+</div>
+<div>
+    @RazorModel.MyClassList.Count()
+</div>
+<div>
+    @RazorModel.QueryCondition.MyId
+</div>
+
+<div>
+    <SfDropDownList TValue="int" TItem="YouClass" Placeholder="你的條件"
+                    Enabled="@RazorModel.ReadyGo"
+                    DataSource="@RazorModel.YourClassList" @bind-Value="@RazorModel.QueryCondition.YourId">
+        <DropDownListEvents TValue="int" TItem="YouClass" />
+        <DropDownListFieldSettings Text="Name" Value="Id" />
+    </SfDropDownList>
+</div>
+<div>
+    @RazorModel.YourClassList.Count()
+</div>
+<div>
+    @RazorModel.QueryCondition.YourId
+</div>
+
+<div>
+    <SfDropDownList TValue="int" TItem="YouClass" Placeholder="他的條件"
+                    Enabled="@RazorModel.ReadyGo"
+                    DataSource="@RazorModel.HisClassList" @bind-Value="@RazorModel.QueryCondition.HisId">
+        <DropDownListEvents TValue="int" TItem="YouClass" />
+        <DropDownListFieldSettings Text="Name" Value="Id" />
+    </SfDropDownList>
+</div>
+<div>
+    @RazorModel.HisClassList.Count()
+</div>
+<div>
+    @RazorModel.QueryCondition.HisId
+</div>
+
+
+@code {
+
+    protected async override Task OnInitializedAsync()
+    {
+        await RazorModel.ProblemViewModelInit();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender == true)
+        {
+            #region 若把下拉選單的初始化呼叫動作放在這裡，需要額外呼叫，否則會無法生效
+            //await RazorModel.ProblemViewModelInit();
+            //StateHasChanged();
+            #endregion
+        }
+    }
+    void Click() { }
+}

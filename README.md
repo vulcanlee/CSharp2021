@@ -13,7 +13,7 @@
 |csTaskFactoryAwait|為何無法等待非同步工作 await Task||
 |bzParameterBinding|Blazor 使用 Parameter 資料綁定方式的觸發時機||
 |csObjectToFile|快取 Web API 內容 1 : 將 .NET 物件永久保存儲存，並可以讀取回應用程式內||
-||||
+|bzDropDownListCorrelation|Blazor SfDropDownList 聯動式下拉選單的設計 正常版本||
 ||||
 ||||
 ||||
