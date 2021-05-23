@@ -1,8 +1,5 @@
 ﻿using bzDropDownListCorrelation.Data;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace bzDropDownListCorrelation
@@ -40,12 +37,8 @@ namespace bzDropDownListCorrelation
             QueryCondition.MyId = -1;
 
             YourClassList.Clear();
-            YourClassList.Insert(0, new YouClass { Name = "請選擇", Id = -1 });
-            QueryCondition.YourId = -1;
 
             HisClassList.Clear();
-            HisClassList.Insert(0, new YouClass { Name = "請選擇", Id = -1 });
-            QueryCondition.HisId = -1;
 
             ReadyGo = true;
         }
