@@ -61,13 +61,15 @@
             // Thread safety using InvokeAsync
             InvokeAsync(StateHasChanged);
         };
+        #region 狀況 01 正確的資料初始化
         await RazorModel.ProblemViewModelInit();
+        #endregion
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender == true)
         {
-            #region 若把下拉選單的初始化呼叫動作放在這裡，需要額外呼叫，否則會無法生效
+            #region 狀況 02 若把下拉選單的初始化呼叫動作放在這裡，需要額外呼叫，否則會無法生效
             //await RazorModel.ProblemViewModelInit();
             //StateHasChanged();
             #endregion

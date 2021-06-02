@@ -1,0 +1,17 @@
+﻿<h3>@CurrentTypeCondition</h3>
+
+@code {
+    private string myVar;
+
+    [Parameter]
+    public string CurrentTypeCondition
+    {
+        get { return myVar; }
+        set
+        {
+            myVar = value;
+            Console.WriteLine($"Component CurrentTypeCondition has changed {myVar}" +
+                $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        }
+    }
+}

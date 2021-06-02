@@ -1,4 +1,5 @@
 ﻿using bzDropDownListCorrelation.Data;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,16 @@ namespace bzDropDownListCorrelation
 {
     public class YourClassService
     {
+        public YourClassService(ILogger<YourClassService> logger)
+        {
+            Logger = logger;
+        }
+
+        public ILogger<YourClassService> Logger { get; }
+
         public async Task<List<YouClass>> Get(string subject, int parentId)
         {
+            Logger.LogDebug($"{subject}服務產生資料 開始");
             Random random = new();
             var maxItems = random.Next(10, 60);
             var delay = random.Next(500, 3000);
@@ -24,6 +33,7 @@ namespace bzDropDownListCorrelation
                 };
                 result.Add(myClass);
             }
+            Logger.LogDebug($"{subject}服務產生資料 結束");
             return result;
         }
     }

@@ -1,0 +1,107 @@
+﻿@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.Data;
+
+@inherits DataAdaptor<Order>
+
+<CascadingValue Value="@this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public FilterClass FilterClass { get; set; }
+
+    private string myVar;
+
+    [Parameter]
+    public string CurrentTypeCondition
+    {
+        get { return myVar; }
+        set
+        {
+            myVar = value;
+            Console.WriteLine($"CurrentTypeCondition has changed {myVar}" +
+                $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+        }
+    }
+
+    public override async Task<object> ReadAsync(DataManagerRequest dataManagerRequest, string key = null)
+    {
+
+        #region 發出查詢要求
+        List<Order> orders = new List<Order>();
+        List<Order> resut = new List<Order>();
+        for (int i = 0; i < 3000; i++)
+        {
+            orders.Add(new Order() { OrderID = i, CustomerID = $"客戶{i}" });
+        }
+
+        #region 使用 CurrentTypeCondition
+        //if (CurrentTypeCondition == "A")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
+        //}
+        //else if (CurrentTypeCondition == "B")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
+        //}
+        //else if (CurrentTypeCondition == "C")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
+        //}
+        //else
+        //{
+        //    resut = orders;
+        //}
+        #endregion
+
+        #region 使用 FilterClass.Id
+        //if (FilterClass.Id == 1)
+        //{
+        //    resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
+        //}
+        //else if (FilterClass.Id == 2)
+        //{
+        //    resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
+        //}
+        //else if (FilterClass.Id == 3)
+        //{
+        //    resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
+        //}
+        //else
+        //{
+        //    resut = orders;
+        //}
+        #endregion
+
+        #region 使用 FilterClass.Title
+        if (FilterClass.Title == "1")
+        {
+            resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
+        }
+        else if (FilterClass.Title == "2")
+        {
+            resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
+        }
+        else if (FilterClass.Title == "3")
+        {
+            resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
+        }
+        else
+        {
+            resut = orders;
+        }
+        #endregion
+
+        var myresult = resut.Take(12);
+        var item = dataManagerRequest.RequiresCounts
+            ? new DataResult() { Result = myresult, Count = resut.Count }
+            : (object)orders;
+        await Task.Yield();
+        return item;
+        #endregion
+    }
+}
