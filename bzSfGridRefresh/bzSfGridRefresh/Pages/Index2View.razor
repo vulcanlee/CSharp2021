@@ -1,0 +1,153 @@
+﻿@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Data;
+@using Syncfusion.Blazor;
+
+<div>
+    <button class="btn btn-primary" @onclick="()=>OnSingleObjectClick(1)">Send A</button>
+    <button class="btn btn-primary" @onclick="()=>OnSingleObjectClick(2)">Send B</button>
+    <button class="btn btn-primary" @onclick="()=>OnSingleObjectClick(3)">Send C</button>
+</div>
+<div>
+    <button class="btn btn-success" @onclick="()=>OnClassClick(1)">Send 1</button>
+    <button class="btn btn-success" @onclick="()=>OnClassClick(2)">Send 2</button>
+    <button class="btn btn-success" @onclick="()=>OnClassClick(2)">Send 3</button>
+</div>
+<div>
+    <button class="btn btn-secondary" @onclick="()=>OnClassClick(3)">Send String 1</button>
+    <button class="btn btn-secondary" @onclick="()=>OnClassStringClick(1)">Send String 2</button>
+    <button class="btn btn-secondary" @onclick="()=>OnClassStringClick(2)">Send String 3</button>
+</div>
+
+<SfGrid @ref="Grid" TValue="Order" AllowPaging="true">
+    <SfDataManager Adaptor="Adaptors.CustomAdaptor">
+        <CustomAdaptorComponent CurrentTypeCondition="@CurrentTypeCondition"
+                                FilterClass="@FilterObject" />
+    </SfDataManager>
+    <GridPageSettings PageSize="12" />
+    <GridColumns>
+        <GridColumn Field=@nameof(Order.OrderID) HeaderText="Order ID" IsIdentity="true" IsPrimaryKey="true" TextAlign="TextAlign.Right" Width="120">
+        </GridColumn>
+        <GridColumn Field=@nameof(Order.CustomerID) HeaderText="Customer Name" Width="150"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code{
+    SfGrid<Order> Grid { get; set; }
+    public static List<Order> Orders { get; set; }
+    public string CurrentTypeCondition { get; set; }
+    public FilterClass FilterObject { get; set; } = new FilterClass();
+
+    async Task OnSingleObjectClick(int i)
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        OutputHelper.Output("CurrentTypeCondition 準備要變更了");
+
+        #region 使用同步方式來進行變更 CurrentTypeCondition
+        if (i == 1)
+        {
+            CurrentTypeCondition = "A";
+        }
+        else if (i == 2)
+        {
+            CurrentTypeCondition = "B";
+        }
+        else if (i == 3)
+        {
+            CurrentTypeCondition = "C";
+        }
+        OutputHelper.Output("CurrentTypeCondition 已經變更了");
+        #endregion
+
+        #region 狀況 1 : 沒做任何事情
+        OutputHelper.Output("沒做任何事情");
+        #endregion
+
+        #region 狀況 2 : 使用 Task.Yield()
+        //OutputHelper.Output("Raise Task.Yield");
+        //await Task.Yield();
+        #endregion
+
+        #region 狀況 3 : 使用 Task.Delay(100)
+        //OutputHelper.Output("Raise Task.Delay");
+        //await Task.Delay(100);
+        #endregion
+
+        #region 狀況 4 : 使用 StateHasChanged
+        OutputHelper.Output("Raise StateHasChanged");
+        //StateHasChanged();
+        #endregion
+
+        OutputHelper.Output("Raise Grid.Refresh");
+        Grid.Refresh();
+    }
+
+    async Task OnClassClick(int i)
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        OutputHelper.Output("FilterObject.Id 準備要變更了");
+
+        #region 使用同步方式來進行變更 FilterObject.Id
+        FilterObject.Id = i;
+        OutputHelper.Output("FilterObject.Id 已經變更了");
+        #endregion
+
+        #region 狀況 1 : 沒做任何事情
+        OutputHelper.Output("沒做任何事情");
+        #endregion
+
+        #region 狀況 2 : 使用 Task.Yield()
+        //OutputHelper.Output("Raise Task.Yield");
+        //await Task.Yield();
+        #endregion
+
+        #region 狀況 3 : 使用 Task.Delay(100)
+        //OutputHelper.Output("Raise Task.Delay");
+        //await Task.Delay(100);
+        #endregion
+
+        #region 狀況 4 : 使用 StateHasChanged
+        //OutputHelper.Output("Raise StateHasChanged");
+        //StateHasChanged();
+        #endregion
+
+        OutputHelper.Output("Raise Grid.Refresh");
+        Grid.Refresh();
+    }
+
+    async Task OnClassStringClick(int i)
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        OutputHelper.Output("FilterObject.Title 準備要變更了");
+
+        #region 使用同步方式來進行變更 FilterObject.Title
+        FilterObject.Title = i.ToString();
+        OutputHelper.Output("FilterObject.Title 已經變更了");
+        #endregion
+
+
+        #region 狀況 1 : 沒做任何事情
+        OutputHelper.Output("沒做任何事情");
+        #endregion
+
+        #region 狀況 2 : 使用 Task.Yield()
+        //OutputHelper.Output("Raise Task.Yield");
+        //await Task.Yield();
+        #endregion
+
+        #region 狀況 3 : 使用 Task.Delay(100)
+        //OutputHelper.Output("Raise Task.Delay");
+        //await Task.Delay(100);
+        #endregion
+
+        #region 狀況 4 : 使用 StateHasChanged
+        //OutputHelper.Output("Raise StateHasChanged");
+        //StateHasChanged();
+        #endregion
+
+        OutputHelper.Output("Raise Grid.Refresh");
+        Grid.Refresh();
+    }
+}

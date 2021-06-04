@@ -10,8 +10,13 @@
         set
         {
             myVar = value;
-            Console.WriteLine($"Component CurrentTypeCondition has changed {myVar}" +
-                $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+            OutputHelper.Output($"Component CurrentTypeCondition has changed {myVar}");
         }
+    }
+
+    public void Refresh()
+    {
+        OutputHelper.Output("Component Refresh() is running");
+        OutputHelper.Output($"【In Component, CurrentTypeCondition is ■{CurrentTypeCondition}■】");
     }
 }

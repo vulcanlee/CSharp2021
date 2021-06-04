@@ -15,7 +15,7 @@
 |csObjectToFile|快取 Web API 內容 1 : 將 .NET 物件永久保存儲存，並可以讀取回應用程式內||
 |bzDropDownListCorrelation|Blazor SfDropDownList 聯動式下拉選單的設計 Part 1 : 符合預期規劃結果||
 |xfObjectToFile|快取 Web API 內容 2 : 在 Xamarin.Forms 專案內，將 .NET 物件永久保存儲存，並可以讀取回應用程式內||
-||||
+|bzSfGridRefresh|Blazor SfGrid SfDataManager 的參數 Parameter 傳遞的異常設計分析||
 ||||
 ||||
 ||||

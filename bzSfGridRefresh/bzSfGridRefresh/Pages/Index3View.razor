@@ -1,0 +1,43 @@
+﻿@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Data;
+@using Syncfusion.Blazor;
+
+<div>
+    <button class="btn btn-primary" @onclick="()=>OnClick(1)">Send A</button>
+    <button class="btn btn-primary" @onclick="()=>OnClick(2)">Send B</button>
+    <button class="btn btn-primary" @onclick="()=>OnClick(3)">Send C</button>
+</div>
+<div>
+    <Component @ref="component" CurrentTypeCondition="@CurrentTypeCondition" />
+</div>
+
+@code{
+    public string CurrentTypeCondition { get; set; }
+    Component component;
+
+    async Task OnClick(int i)
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        OutputHelper.Output("CurrentTypeCondition 準備要變更了");
+
+        #region 使用同步方式來進行變更 CurrentTypeCondition
+        if (i == 1)
+        {
+            CurrentTypeCondition = "A";
+        }
+        else if (i == 2)
+        {
+            CurrentTypeCondition = "B";
+        }
+        else if (i == 3)
+        {
+            CurrentTypeCondition = "C";
+        }
+        OutputHelper.Output("CurrentTypeCondition 已經變更了");
+        #endregion
+
+        OutputHelper.Output("Raise component.Refresh");
+        component.Refresh();
+    }
+}

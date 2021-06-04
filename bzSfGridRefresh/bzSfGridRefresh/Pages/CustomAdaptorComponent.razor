@@ -25,6 +25,8 @@
             myVar = value;
             Console.WriteLine($"CurrentTypeCondition has changed {myVar}" +
                 $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+            var foo = System.Threading.SynchronizationContext.Current == null ? "Has No" : "Has";
+            Console.WriteLine($"This Thread {foo} SynchronizationContext");
         }
     }
 
@@ -40,22 +42,22 @@
         }
 
         #region 使用 CurrentTypeCondition
-        //if (CurrentTypeCondition == "A")
-        //{
-        //    resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
-        //}
-        //else if (CurrentTypeCondition == "B")
-        //{
-        //    resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
-        //}
-        //else if (CurrentTypeCondition == "C")
-        //{
-        //    resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
-        //}
-        //else
-        //{
-        //    resut = orders;
-        //}
+        if (CurrentTypeCondition == "A")
+        {
+            resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
+        }
+        else if (CurrentTypeCondition == "B")
+        {
+            resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
+        }
+        else if (CurrentTypeCondition == "C")
+        {
+            resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
+        }
+        else
+        {
+            resut = orders;
+        }
         #endregion
 
         #region 使用 FilterClass.Id
@@ -78,22 +80,22 @@
         #endregion
 
         #region 使用 FilterClass.Title
-        if (FilterClass.Title == "1")
-        {
-            resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
-        }
-        else if (FilterClass.Title == "2")
-        {
-            resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
-        }
-        else if (FilterClass.Title == "3")
-        {
-            resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
-        }
-        else
-        {
-            resut = orders;
-        }
+        //if (FilterClass.Title == "1")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 7 == 0).ToList();
+        //}
+        //else if (FilterClass.Title == "2")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 11 == 0).ToList();
+        //}
+        //else if (FilterClass.Title == "3")
+        //{
+        //    resut = orders.Where(x => x.OrderID % 29 == 0).ToList();
+        //}
+        //else
+        //{
+        //    resut = orders;
+        //}
         #endregion
 
         var myresult = resut.Take(12);
