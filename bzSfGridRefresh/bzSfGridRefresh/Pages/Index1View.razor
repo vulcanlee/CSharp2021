@@ -92,12 +92,12 @@
         #endregion
 
         #region 狀況 7 : 使用 Task.Yield()，且又再度變更該參數內容，並且使用 await Task.Yield();
-        OutputHelper.Output("Raise Task.Yield");
-        await Task.Yield();
-        CurrentTypeCondition = "再度變更";
-        StateHasChanged();
-        OutputHelper.Output("Raise Task.Yield");
-        await Task.Yield();
+        //OutputHelper.Output("Raise Task.Yield");
+        //await Task.Yield();
+        //CurrentTypeCondition = "再度變更";
+        ////StateHasChanged();
+        //OutputHelper.Output("Raise Task.Yield");
+        //await Task.Yield();
         #endregion
 
         OutputHelper.Output("Raise component.Refresh");

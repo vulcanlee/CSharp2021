@@ -60,12 +60,12 @@
         #endregion
 
         #region 狀況 1 : 沒做任何事情
-        OutputHelper.Output("沒做任何事情");
+        //OutputHelper.Output("沒做任何事情");
         #endregion
 
         #region 狀況 2 : 使用 Task.Yield()
-        //OutputHelper.Output("Raise Task.Yield");
-        //await Task.Yield();
+        OutputHelper.Output("Raise Task.Yield");
+        await Task.Yield();
         #endregion
 
         #region 狀況 3 : 使用 Task.Delay(100)
@@ -74,7 +74,7 @@
         #endregion
 
         #region 狀況 4 : 使用 StateHasChanged
-        OutputHelper.Output("Raise StateHasChanged");
+        //OutputHelper.Output("Raise StateHasChanged");
         //StateHasChanged();
         #endregion
 

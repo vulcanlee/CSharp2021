@@ -23,10 +23,7 @@
         set
         {
             myVar = value;
-            Console.WriteLine($"CurrentTypeCondition has changed {myVar}" +
-                $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
-            var foo = System.Threading.SynchronizationContext.Current == null ? "Has No" : "Has";
-            Console.WriteLine($"This Thread {foo} SynchronizationContext");
+            OutputHelper.Output($"CustomAdaptorComponent CurrentTypeCondition has changed {myVar}");
         }
     }
 

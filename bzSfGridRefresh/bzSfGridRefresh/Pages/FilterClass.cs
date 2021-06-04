@@ -15,8 +15,7 @@ namespace bzSfGridRefresh.Pages
             set
             {
                 myVar = value;
-                Console.WriteLine($"FilterClass Id has changed {myVar}" +
-                    $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+                OutputHelper.Output($"FilterClass Id has changed {myVar}");
             }
         }
 
@@ -28,8 +27,7 @@ namespace bzSfGridRefresh.Pages
             set
             {
                 myVarTitle = value;
-                Console.WriteLine($"FilterClass Title has changed {myVarTitle}" +
-                        $"(Thread:{System.Threading.Thread.CurrentThread.ManagedThreadId})");
+                OutputHelper.Output($"FilterClass Title has changed {myVarTitle}");
             }
         }
 
