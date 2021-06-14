@@ -1,0 +1,55 @@
+﻿@page "/"
+
+<h1>Hello, Parameter Binding Resolution!</h1>
+
+<div>
+    <Counter currentCount="@counterNumber" />
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="Reset">重新設定</button>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="ResetAsync">非同步重新設定</button>
+</div>
+<div>
+    <NewCounter @ref="NewCounter" currentCount="@counterNumber" />
+</div>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    public int counterNumber { get; set; }
+    public NewCounter NewCounter { get; set; }
+    void Reset()
+    {
+        counterNumber = 100;
+    }
+
+    async Task ResetAsync()
+    {
+        Console.WriteLine(); Console.WriteLine();
+        counterNumber = 50;
+        NewCounter.EchoCurrentCount();
+        await Task.Delay(100);
+        await Task.Delay(100);
+        counterNumber = 100;
+        NewCounter.EchoCurrentCount();
+        Console.WriteLine("Launch Task.Delay(100)");
+        await Task.Delay(100);
+        counterNumber = 1;
+        Console.WriteLine("Launch Task.Delay(100)");
+        await Task.Delay(100);
+        counterNumber = 2;
+        Console.WriteLine("StateHasChanged()");
+        StateHasChanged();
+        Console.WriteLine("Launch Task.Delay(100)");
+        await Task.Delay(100);
+        counterNumber = 3;
+        Console.WriteLine("Launch Task.Delay(100)");
+        await Task.Delay(100);
+        counterNumber = 4;
+        Console.WriteLine("Launch Task.Delay(100)");
+        await Task.Delay(100);
+        counterNumber = 5;
+    }
+}
