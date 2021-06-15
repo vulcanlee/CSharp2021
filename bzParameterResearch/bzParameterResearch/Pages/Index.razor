@@ -42,6 +42,12 @@
         Console.WriteLine("Launch Task.Delay(100)");
         await Task.Delay(100);
         NewCounter.EchoCurrentCount();
+        Console.WriteLine($"將計數器強制修正為 100");
+        counterNumber = 100;
+        NewCounter.EchoCurrentCount();
+        //Console.WriteLine($"將計數器強制修正為 50");
+        //counterNumber = 100;
+        Console.WriteLine("Launch Task.Delay(100)");
         await Task.Delay(100);
         counterNumber = 100;
         NewCounter.EchoCurrentCount();
