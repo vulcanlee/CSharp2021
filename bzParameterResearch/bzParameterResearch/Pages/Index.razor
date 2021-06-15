@@ -1,21 +1,29 @@
 ﻿@page "/"
 
-<h1>Hello, Parameter Binding Resolution!</h1>
+<h1>Hello, 參數資料綁定與轉譯樹之深入研究!</h1>
 
-<div>
-    <Counter currentCount="@counterNumber" />
+<div class="card">
+    <div class="card-header">
+        使用 .razor 檔案設計的 Razor 元件
+    </div>
+    <div class="card-body">
+        <Counter currentCount="@counterNumber" />
+    </div>
 </div>
-<div>
+
+<div class="card">
+    <div class="card-header">
+        使用 C# 設計的 Razor 元件
+    </div>
+    <div class="card-body">
+        <NewCounter @ref="NewCounter" currentCount="@counterNumber" />
+    </div>
+</div>
+
+<div class="my-4">
     <button class="btn btn-primary" @onclick="Reset">重新設定</button>
+    <button class="btn btn-primary mx-3" @onclick="ResetAsync">非同步重新設定</button>
 </div>
-<div>
-    <button class="btn btn-primary" @onclick="ResetAsync">非同步重新設定</button>
-</div>
-<div>
-    <NewCounter @ref="NewCounter" currentCount="@counterNumber" />
-</div>
-
-<SurveyPrompt Title="How is Blazor working for you?" />
 
 @code{
     public int counterNumber { get; set; }
@@ -28,9 +36,12 @@
     async Task ResetAsync()
     {
         Console.WriteLine(); Console.WriteLine();
+        Console.WriteLine($"將計數器強制修正為 50");
         counterNumber = 50;
         NewCounter.EchoCurrentCount();
+        Console.WriteLine("Launch Task.Delay(100)");
         await Task.Delay(100);
+        NewCounter.EchoCurrentCount();
         await Task.Delay(100);
         counterNumber = 100;
         NewCounter.EchoCurrentCount();
@@ -40,8 +51,8 @@
         Console.WriteLine("Launch Task.Delay(100)");
         await Task.Delay(100);
         counterNumber = 2;
-        Console.WriteLine("StateHasChanged()");
-        StateHasChanged();
+        //Console.WriteLine("StateHasChanged()");
+        //StateHasChanged();
         Console.WriteLine("Launch Task.Delay(100)");
         await Task.Delay(100);
         counterNumber = 3;
