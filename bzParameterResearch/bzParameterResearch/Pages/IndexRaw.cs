@@ -74,6 +74,16 @@
 
         public int counterNumber { get; set; }
         public NewCounter NewCounter { get; set; }
+
+        /// <summary>
+        /// 當該元件要進行 轉譯 / 渲覽 / Render 的時候，就會觸發的生命週期事件
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            System.Console.WriteLine($"IndexRaw 元件的 轉譯 生命週期事件觸發了 OnAfterRender");
+        }
+
         void Reset()
         {
             //Console.WriteLine($"將計數器強制修正為 100");

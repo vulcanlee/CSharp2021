@@ -34,11 +34,20 @@
         public int currentCount { get; set; } = 0;
 
         /// <summary>
+        /// 當該元件要進行 轉譯 / 渲覽 / Render 的時候，就會觸發的生命週期事件
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            System.Console.WriteLine($"  子元件的 轉譯 生命週期事件觸發了 OnAfterRender : {currentCount}");
+        }
+
+        /// <summary>
         /// 當參數要進行綁定的時候，將會觸發的生命週期事件
         /// </summary>
         protected override void OnParametersSet()
         {
-            System.Console.WriteLine($"  子元件的參數綁定生命週期事件觸發了 OnParametersSet : {currentCount}");
+            System.Console.WriteLine($"  子元件的 參數綁定 生命週期事件觸發了 OnParametersSet : {currentCount}");
         }
 
         /// <summary>

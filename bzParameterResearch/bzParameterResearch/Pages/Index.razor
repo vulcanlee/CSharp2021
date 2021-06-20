@@ -30,11 +30,12 @@
     public NewCounter NewCounter { get; set; }
     void Reset()
     {
-        //Console.WriteLine($"將計數器強制修正為 100");
-        //counterNumber = 100;
+        Console.WriteLine(); Console.WriteLine();
+        Console.WriteLine($"將計數器強制修正為 100");
+        counterNumber = 100;
         //NewCounter.EchoCurrentCount();
-        Console.WriteLine($"沒有任何異動");
-        NewCounter.EchoCurrentCount();
+        //Console.WriteLine($"沒有任何異動");
+        //NewCounter.EchoCurrentCount();
         StateHasChanged();
     }
 
