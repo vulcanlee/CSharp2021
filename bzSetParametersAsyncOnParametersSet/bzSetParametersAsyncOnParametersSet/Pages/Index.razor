@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<h1>Hello, SetParametersAsync 與 OnParametersSet!</h1>
+
+<ChildComponent IntParameter="@IntArgument"
+                StringParameter="@StringArgument"
+                DateTimeParameter="@DateTimeArgument" />
+<div>
+    <button class="btn btn-primary" @onclick="BtnChangeArgument">變更引數</button>
+</div>
+
+@code{
+    public int IntArgument { get; set; } = 99;
+    public string StringArgument { get; set; } = "Initialization";
+    public DateTime DateTimeArgument { get; set; } = DateTime.Now;
+
+    void BtnChangeArgument()
+    {
+        Console.WriteLine();
+        Console.WriteLine($"變更傳入引數");
+        IntArgument = 168;
+        //StringArgument = "Change String Value";
+        //DateTimeArgument = DateTimeArgument.AddDays(1);
+    }
+}
