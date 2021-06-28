@@ -1,0 +1,148 @@
+﻿@inject MyNoteService MyNoteService
+
+<Button @onclick="AddAsync">新增</Button>
+
+<div>
+    <Table @ref="table"
+           TItem="MyNote"
+           DataSource="@myNotes"
+           Total="_total"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           @bind-SelectedRows="selectedRows"
+           OnPageIndexChange="PageIndexChanged"
+           OnPageSizeChange="PageSizeChange">
+        <Column @bind-Field="@context.Id" Title="代號" />
+        <Column @bind-Field="@context.Title" Title="名稱" />
+        <ActionColumn Width="100" Fixed="right">
+            <Space>
+                <SpaceItem><Button OnClick="async ()=>await EditAsync(context)">Edit</Button></SpaceItem>
+                <SpaceItem><Button Danger OnClick="async ()=>await DeleteAsync(context)">Delete</Button></SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+</div>
+
+<div>
+    @{
+        RenderFragment footer =
+        @<Template>
+            <Button OnClick="@HandleCancel">
+                關閉
+            </Button>
+        </Template>;
+    }
+    <Modal Title="@title"
+           Visible="@visible"
+           CancelText="@cancelText"
+           OnCancel="@HandleCancel"
+           Footer="@footer">
+
+        <Form Model="CurrentMyNote"
+              OnFinish="OnFinishAsync">
+            <FormItem Label="記事名稱">
+                <Input Placeholder="Basic usage" @bind-Value="@CurrentMyNote.Title" />
+            </FormItem>
+            <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                <Button Type="@ButtonType.Primary" HtmlType="submit">
+                    儲存
+                </Button>
+            </FormItem>
+        </Form>
+
+
+    </Modal>
+</div>
+
+@using System.Text.Json;
+@code {
+
+    List<MyNote> myNotes;
+    MyNote CurrentMyNote;
+    public bool NewRecordMode { get; set; }
+
+    IEnumerable<MyNote> selectedRows;
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 5;
+    int _total = 0;
+
+    #region 編輯記錄對話窗
+    string title = "編輯紀錄";
+    bool visible = false;
+    string cancelText = "關閉";
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ReloadAsync();
+    }
+
+    async Task ReloadAsync()
+    {
+        await Task.Yield();
+        (List<MyNote> items, int total) = MyNoteService.Get(_pageIndex, _pageSize);
+        myNotes = items;
+        _total = total;
+        StateHasChanged();
+    }
+
+    private async Task PageIndexChanged(PaginationEventArgs args)
+    {
+        _pageIndex = args.Page;
+        await ReloadAsync();
+    }
+
+    private async Task PageSizeChange(PaginationEventArgs args)
+    {
+        _pageSize = args.PageSize;
+        await ReloadAsync();
+    }
+
+    public void RemoveSelection(int id)
+    {
+        var selected = selectedRows.Where(x => x.Id != id);
+        selectedRows = selected;
+    }
+
+    private async Task DeleteAsync(MyNote myNote)
+    {
+        MyNoteService.Delete(myNote);
+        await ReloadAsync();
+    }
+
+    private async Task EditAsync(MyNote myNote)
+    {
+        CurrentMyNote = myNote.Clone();
+        NewRecordMode = false;
+        visible = true;
+        await Task.Yield();
+    }
+
+    private async Task AddAsync()
+    {
+        CurrentMyNote = new MyNote();
+        NewRecordMode = true;
+        visible = true;
+        await Task.Yield();
+    }
+    private async Task OnFinishAsync(EditContext editContext)
+    {
+        if (NewRecordMode == false)
+        {
+            MyNoteService.Update(CurrentMyNote);
+        }
+        else
+        {
+            MyNoteService.Add(CurrentMyNote);
+        }
+        await ReloadAsync();
+        visible = false;
+    }
+
+    private void HandleCancel(MouseEventArgs e)
+    {
+        visible = false;
+    }
+}
