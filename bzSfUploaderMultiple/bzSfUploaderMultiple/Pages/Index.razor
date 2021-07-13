@@ -1,0 +1,37 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Inputs
+
+<h1>Hello, SfUploader!</h1>
+
+<SfUploader @ref="upload1" AutoUpload="true" AllowedExtensions=".png, .jpg, .jpeg">
+    <UploaderEvents ValueChange="UploaderChange"></UploaderEvents>
+</SfUploader>
+
+<div>
+    @foreach (var item in Messages)
+    {
+        <div>
+            @item
+        </div>
+    }
+</div>
+
+@code{
+    SfUploader upload1;
+    public List<string> Messages { get; set; } = new();
+
+    public async Task UploaderChange(UploadChangeEventArgs args)
+    {
+        if (args.Files.Count > 0)
+        {
+            Messages.Add($"接收到 {args.Files.Count} 個檔案");
+            Messages.Add($"");
+            foreach (var fileUpload in args.Files)
+            {
+                await Task.Delay(2000);
+            }
+        }
+
+        await upload1.ClearAll();
+    }
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bzSfUploaderMultiple", "bzSfUploaderMultiple\bzSfUploaderMultiple.csproj", "{9DF671E6-EF42-4FDC-A388-41CE174A18FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DF671E6-EF42-4FDC-A388-41CE174A18FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF671E6-EF42-4FDC-A388-41CE174A18FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF671E6-EF42-4FDC-A388-41CE174A18FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF671E6-EF42-4FDC-A388-41CE174A18FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6362928A-59CC-4A92-A356-05214EA5EB84}
+	EndGlobalSection
+EndGlobal
