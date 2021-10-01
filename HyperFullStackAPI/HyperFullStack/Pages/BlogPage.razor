@@ -1,0 +1,147 @@
+﻿@page "/Blog"
+
+@using HyperFullStack.Models
+@using HyperFullStack.Services
+
+<h3>部落格文章</h3>
+
+@if (ShowEditRecord == false)
+{
+    <div class="my-3">
+        <button class="btn btn-primary" @onclick="OnAdd">新增</button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>文章</th>
+                <th>修改</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var postItem in BlogPosts)
+            {
+                <tr>
+                    <td>@postItem.Title</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=>OnEdit(postItem)">修改</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="()=>OnDelete(postItem)">刪除</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="my-2">
+        <div class="card">
+            <EditForm Model="CurrentBlogPost"
+                      OnValidSubmit="HandleValidSubmit">
+                <div class="card-header">
+                    @IsAddRecordName 紀錄
+                </div>
+                <div class="card-body">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label class="control-label">文章主題</label>
+                        <InputText class="form-control" @bind-Value="CurrentBlogPost.Title" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">文章內容</label>
+                        <InputTextArea class="form-control" @bind-Value="CurrentBlogPost.Text" rows="6" />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col mr-3">儲存</button>
+                        <button class="btn btn-secondary col ml-3" @onclick="OnCalcelEditRecord">取消</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    public List<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
+    public BlogPost CurrentBlogPost { get; set; } = new BlogPost();
+    public bool ShowEditRecord { get; set; } = false;
+    public bool IsAddRecord { get; set; } = false;
+    public bool IsCancleRecord { get; set; } = false;
+    public string IsAddRecordName
+    {
+        get
+        {
+            if (IsAddRecord) return "新增";
+            else return "修改";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        Reload();
+    }
+
+    void Reload()
+    {
+        BlogPosts = BlogPostService.GetBlogPosts();
+    }
+
+    void OnAdd()
+    {
+        CurrentBlogPost = new BlogPost();
+        IsAddRecord = true;
+        ShowEditRecord = true;
+        IsCancleRecord = false;
+    }
+
+    void OnEdit(BlogPost postItem)
+    {
+        #region 複製要修該物件的值
+        CurrentBlogPost = new BlogPost();
+        CurrentBlogPost.Id = postItem.Id;
+        CurrentBlogPost.Title = postItem.Title;
+        CurrentBlogPost.Text = postItem.Text;
+        #endregion
+
+        IsAddRecord = false;
+        ShowEditRecord = true;
+        IsCancleRecord = false;
+    }
+
+    void OnCalcelEditRecord()
+    {
+        ShowEditRecord = false;
+        IsCancleRecord = true;
+    }
+
+    void OnDelete(BlogPost postItem)
+    {
+        BlogPosts.Remove(BlogPosts.FirstOrDefault(x => x.Id == postItem.Id));
+    }
+
+    void HandleValidSubmit()
+    {
+        if (IsCancleRecord == true)
+        {
+            IsCancleRecord = false;
+            return;
+        }
+        if (IsAddRecord == true)
+        {
+            BlogPosts.Add(CurrentBlogPost);
+        }
+        else
+        {
+            var item = BlogPosts.FirstOrDefault(x => x.Id == CurrentBlogPost.Id);
+            item.Title = CurrentBlogPost.Title;
+            item.Text = CurrentBlogPost.Text;
+        }
+        ShowEditRecord = false;
+    }
+}

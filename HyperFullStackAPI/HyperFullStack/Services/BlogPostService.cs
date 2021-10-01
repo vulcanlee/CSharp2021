@@ -11,7 +11,7 @@ namespace HyperFullStack.Services
         static List<BlogPost> blogPosts = new List<BlogPost>();
         static BlogPostService()
         {
-            blogPosts = new List<BlogPost>()
+            blogPosts= new List<BlogPost>()
             {
                 new BlogPost{ Id = 1, Text = "內容 1", Title="文章 1"},
                 new BlogPost{ Id = 2, Text = "內容 2", Title="文章 2"},
