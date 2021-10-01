@@ -36,17 +36,8 @@
 @code {
     public List<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
 
-    #region 元件生命週期事件
     protected override void OnInitialized()
-    {
-        Reload();
-    }
-    #endregion
-
-    #region 讀取紀錄
-    void Reload()
     {
         BlogPosts = BlogPostService.GetBlogPosts();
     }
-    #endregion
 }
