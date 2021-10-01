@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HyperFullStackMobile.Views.MainPage"
+             Title="超全端開發 - Xamarin">
+
+    <Grid>
+        <ListView
+            ItemsSource="{Binding BlogPostItems}"
+            IsRefreshing="{Binding IsRefreshing}"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding PullRefreshCommand}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Label Text="{Binding Title}"
+                                   FontSize="20" TextColor="Gray"
+                                   HeightRequest="30" 
+                                   VerticalTextAlignment="Center" HorizontalOptions="Start"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>
