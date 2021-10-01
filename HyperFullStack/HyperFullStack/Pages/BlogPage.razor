@@ -1,0 +1,52 @@
+﻿@page "/Blog"
+
+@using HyperFullStack.Models
+@using HyperFullStack.Services
+
+<h3>部落格文章</h3>
+
+<div class="my-3">
+    <button class="btn btn-primary">新增</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>文章</th>
+            <th>修改</th>
+            <th>刪除</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var postItem in BlogPosts)
+        {
+            <tr>
+                <td>@postItem.Title</td>
+                <td>
+                    <button class="btn btn-primary">修改</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger">刪除</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    public List<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
+
+    #region 元件生命週期事件
+    protected override void OnInitialized()
+    {
+        Reload();
+    }
+    #endregion
+
+    #region 讀取紀錄
+    void Reload()
+    {
+        BlogPosts = BlogPostService.GetBlogPosts();
+    }
+    #endregion
+}
