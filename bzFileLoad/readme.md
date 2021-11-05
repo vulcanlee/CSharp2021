@@ -1,4 +1,6 @@
 
+使用系統管理者來啟動 Windows PowerShell 視窗
+
 取得有效的執行原則：
 Get-ExecutionPolicy
 
@@ -13,7 +15,17 @@ winrm set winrm/config/client '@{TrustedHosts="104.88.88.88,104.87.87.87"}'
 #設定allow all *
 Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
 
-<AllowUntrustedCertificate>true</AllowUntrustedCertificate>
+
+
+
+要進行設定，可以在用戶端電腦上，執行底下命令
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+Enable-PSRemoting -SkipNetworkProfileCheck
+
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
+
 
 
 
