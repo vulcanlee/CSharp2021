@@ -58,6 +58,6 @@ Invoke-Command -Session $session -ArgumentList $VarApplicationPool, $VarWebSiteN
     }
 }
 
-Remove-psSession –session $session
+Remove-psSession -session $session
  
 
