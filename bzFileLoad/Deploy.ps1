@@ -39,7 +39,7 @@ Invoke-Command -Session $session -ArgumentList $VarApplicationPool -Command {
 }
 
 Write-Output "開始進行 Blazor 專案部署工作"
-dotnet publish /p:Password=P@ssword /p:PublishProfile=$VarPublishProfile
+dotnet publish /p:Password=P@ssword /p:PublishProfile=$VarPublishProfile /p:AllowUntrustedCertificate=True
 
 Write-Output "Blazor 專案部署完成，重新啟動應用程式集區"
 Invoke-Command -Session $session -ArgumentList $VarApplicationPool, $VarWebSite -Command {
