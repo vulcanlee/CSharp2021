@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+
+@using Microsoft.JSInterop
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+
+@inject IJSRuntime JSRuntime
+
+@implements IDisposable
+
+<div class="card">
+    <div class="card-header text-center">
+        使用者登入
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-center">所有欄位都要輸入</h5>
+        <div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="control-label">帳號</label>
+                    <input class ="form-control"  @bind-value=@LoginData.Account
+                                 @bind-value:event="oninput"  Placeholder="請輸入姓名"   />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="control-label">密碼</label>
+                    <input class ="form-control"  @bind-value=@LoginData.Password
+                                 @bind-value:event="oninput"  Type="InputType.Password" Placeholder="請輸入密碼"   />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class ="form-control m-auto"  
+                                         @bind-value=@LoginData.Captcha @bind-value:event="oninput"
+                                         Placeholder="請輸入右方驗證碼數字" autocomplete="off" />
+                            <span>
+                                <button class="btn btn-primary" @onclick="RefreshChaptcha">更新</button>
+                            </span>
+                            <span>
+                                <img class="captcha align-middle" src="@CaptchaImage" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-footer text-muted  text-center">
+    <h2>在 ASP.NET Razor Page 內使用 Razor (Blazor) Component</h2>
+</div>
+
+@code {
+    [Parameter]
+    public LoginData LoginData { get; set; }
+    public CaptchaHelper CaptchaHelper { get; set; } = new();
+    public string CaptchaImage { get; set; } = "";
+
+    bool Running = true;
+    Task task = null;
+    string lastLoginData = "";
+    CookieHelper cookieHelper = null;
+    bool isFirst = false;
+
+    protected override void OnInitialized()
+    {
+        cookieHelper = new CookieHelper(JSRuntime);
+        LoginData.Account = "vulcan";
+        LoginData.Password = "lee";
+        (LoginData.CaptchaOrigin, CaptchaImage) = CaptchaHelper.GetCaptchaImage();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            task = Task.Run(async () =>
+            {
+                while (Running)
+                {
+                    if (isFirst == false)
+                    {
+                        isFirst = true;
+                        lastLoginData = JsonSerializer.Serialize(LoginData);
+                        continue;
+                    }
+                    var data = JsonSerializer.Serialize(LoginData);
+                    if (data != lastLoginData)
+                    {
+                        await UpdateSessionAsync();
+                        lastLoginData = data;
+                    }
+                    await Task.Delay(100);
+                }
+            });
+        }
+    }
+
+    void RefreshChaptcha()
+    {
+        (LoginData.CaptchaOrigin, CaptchaImage) = CaptchaHelper.GetCaptchaImage();
+    }
+    public void Dispose()
+    {
+        Running = false;
+    }
+    public async Task UpdateSessionAsync()
+    {
+        var data = JsonSerializer.Serialize(LoginData);
+        var dataEncode = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(data));
+        await cookieHelper.SetValue("LoginData", dataEncode);
+    }
+}

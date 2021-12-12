@@ -18,6 +18,7 @@
 |bzSfGridRefresh|Blazor SfGrid SfDataManager 的參數 Parameter 傳遞的異常設計分析||
 |bzFileLoad|Blazor 檔案上傳上線測試用專案||
 |LoginComponent1|在 ASP.NET Core Razor 頁面下使用 Razor 元件||
+|LoginComponent2|Razor 頁面讀取 Razor 元件資料||
 ||||
 ||||
 ||||

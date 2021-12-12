@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<component type="typeof(LoginInformationComponent)"
+           render-mode="ServerPrerendered" param-LoginData="@Model.LoginData" />
+
+<form method="post" autocomplete="off">
+    <input type="hidden" asp-for="Account" value="@Model.LoginData.Account" />
+    <input type="hidden" asp-for="Password" value="@Model.LoginData.Password" />
+    <input type="hidden" asp-for="Captcha" value="@Model.LoginData.Captcha" />
+    <input type="hidden" asp-for="CaptchaOrigin" value="@Model.LoginData.CaptchaOrigin" />
+    <div class="row">
+        <div class="col-12 mt-2">
+            <div class="form-group ">
+                <button type="submit" class="btn btn-primary btn-block text-center"> 登入  </button>
+            </div>
+        </div>
+    </div>
+</form>
